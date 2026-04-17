@@ -361,5 +361,3 @@ Mengelola seluruh alur transaksi dari pemilihan produk hingga konfirmasi.
 
 ---
 
-Copyright © 1999 by Karl E. Wiegers.  
-Permission is granted to use, modify, and distribute this document.
