@@ -4,11 +4,11 @@
 
 | Atribut | Nilai |
 |---|---|
-| Versi Dokumen | 1.1.0 — April 2025 |
+| Versi Dokumen | 1.1.0 — April 2026 |
 | Status | Draft Akhir |
 | Dibuat oleh | Tim Pengembang Platform LOKAL |
 | Organisasi | Platform LOKAL — Bandung, Jawa Barat, Indonesia |
-| Tanggal Dibuat | April 2025 |
+| Tanggal Dibuat | April 2026 |
 | Klasifikasi | Internal — Dokumen Perancangan |
 | Database | MySQL 8.0 |
 
@@ -18,7 +18,7 @@
 
 | Name | Date | Reason For Changes | Version |
 |---|---|---|---|
-| Tim Pengembang LOKAL | April 2025 | Dokumen Teknis v1.1 dirilis | 1.1.0 |
+| Tim Pengembang LOKAL | April 2026 | Dokumen Teknis v1.1 dirilis | 1.1.0 |
 
 ---
 
