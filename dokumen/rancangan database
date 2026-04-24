@@ -1,0 +1,289 @@
+---
+title: Database Schema — Platform LOKAL v1.1.0
+---
+erDiagram
+
+  %% ============================================================
+  %% PLATFORM LOKAL v1.1.0 — Entity Relationship Diagram
+  %% Database: MySQL 8.0
+  %% ============================================================
+
+  users {
+    BIGINT      id              PK
+    VARCHAR     name
+    VARBINARY   phone           "AES-256 encrypted"
+    VARCHAR     phone_hash      "SHA-256 untuk pencarian"
+    ENUM        role            "consumer|umkm|producer|admin"
+    ENUM        status          "active|inactive|blocked|pending_verification"
+    VARCHAR     fcm_token       "Firebase Cloud Messaging"
+    JSON        notification_pref
+    TIMESTAMP   created_at
+    TIMESTAMP   updated_at
+    TIMESTAMP   deleted_at      "Soft delete"
+  }
+
+  otp_codes {
+    BIGINT      id              PK
+    VARCHAR     phone_hash      FK
+    VARCHAR     otp_hash        "SHA-256 kode OTP"
+    TINYINT     attempt         "Maks. 5 percobaan"
+    TIMESTAMP   expires_at      "TTL 5 menit"
+    TIMESTAMP   used_at
+    TIMESTAMP   blocked_until   "Blokir 15 menit"
+    TIMESTAMP   created_at
+  }
+
+  refresh_tokens {
+    BIGINT      id              PK
+    BIGINT      user_id         FK
+    VARCHAR     token_hash      "SHA-256 token"
+    TIMESTAMP   expires_at      "30 hari"
+    TIMESTAMP   revoked_at
+    VARCHAR     user_agent
+    VARCHAR     ip_address
+    TIMESTAMP   created_at
+  }
+
+  umkm_profiles {
+    BIGINT      id              PK
+    BIGINT      user_id         FK
+    VARCHAR     business_name
+    TEXT        description
+    VARCHAR     category
+    TEXT        address
+    POINT       location        "Koordinat geospasial (SPATIAL INDEX)"
+    VARBINARY   phone_business  "AES-256 encrypted"
+    VARCHAR     nib_number
+    VARCHAR     siup_number
+    VARCHAR     nib_doc_url     "MinIO path"
+    VARCHAR     siup_doc_url    "MinIO path"
+    ENUM        verification_status "pending|verified|rejected"
+    TIMESTAMP   verified_at
+    BIGINT      verified_by     "Admin user_id"
+    DECIMAL     rating_avg
+    INT         rating_count
+    TINYINT     is_active
+    TIMESTAMP   created_at
+    TIMESTAMP   updated_at
+  }
+
+  categories {
+    INT         id              PK
+    INT         parent_id       FK "NULL = kategori root"
+    VARCHAR     name
+    VARCHAR     slug
+    VARCHAR     icon_url
+    SMALLINT    sort_order
+    TINYINT     is_active
+    TIMESTAMP   created_at
+  }
+
+  products {
+    BIGINT      id              PK
+    BIGINT      umkm_id         FK
+    INT         category_id     FK
+    VARCHAR     name
+    VARCHAR     slug
+    TEXT        description
+    DECIMAL     price
+    DECIMAL     price_min       "Saran ML minimum"
+    DECIMAL     price_max       "Saran ML maksimum"
+    INT         stock
+    VARCHAR     unit
+    JSON        attributes      "Variabel: warna, ukuran, dll."
+    JSON        photos          "Array URL MinIO, maks. 5"
+    TINYINT     is_active
+    TIMESTAMP   ml_analyzed_at
+    TIMESTAMP   created_at
+    TIMESTAMP   updated_at
+    TIMESTAMP   deleted_at      "Soft delete"
+  }
+
+  carts {
+    BIGINT      id              PK
+    BIGINT      user_id         FK "1 keranjang per user"
+    TIMESTAMP   created_at
+    TIMESTAMP   updated_at
+  }
+
+  cart_items {
+    BIGINT      id              PK
+    BIGINT      cart_id         FK
+    BIGINT      product_id      FK
+    INT         quantity
+    DECIMAL     price_snapshot  "Harga saat ditambahkan"
+    TIMESTAMP   created_at
+    TIMESTAMP   updated_at
+  }
+
+  orders {
+    BIGINT      id              PK
+    VARCHAR     order_number    "ORD-YYYYMMDD-XXXXXX"
+    BIGINT      user_id         FK
+    ENUM        status          "pending|paid|processing|shipped|completed|cancelled|refunded"
+    DECIMAL     subtotal
+    DECIMAL     lokal_coin_used "Maks. 20% subtotal"
+    DECIMAL     discount_amount
+    DECIMAL     total_amount    "Jumlah bayar ke Midtrans"
+    ENUM        payment_method  "gopay|ovo|dana|virtual_account|qris"
+    VARCHAR     midtrans_order_id
+    VARCHAR     midtrans_snap_token "Kadaluwarsa 30 menit"
+    TIMESTAMP   payment_expires_at
+    TIMESTAMP   paid_at
+    TEXT        notes
+    TIMESTAMP   created_at
+    TIMESTAMP   updated_at
+  }
+
+  order_items {
+    BIGINT      id              PK
+    BIGINT      order_id        FK
+    BIGINT      umkm_id         FK
+    BIGINT      product_id      FK
+    VARCHAR     product_name    "Snapshot nama produk"
+    VARCHAR     product_photo   "Snapshot URL foto"
+    INT         quantity
+    DECIMAL     unit_price      "Harga saat transaksi"
+    DECIMAL     subtotal
+    ENUM        umkm_status     "pending|accepted|rejected|shipped|delivered"
+    TIMESTAMP   created_at
+    TIMESTAMP   updated_at
+  }
+
+  payment_logs {
+    BIGINT      id              PK
+    BIGINT      order_id        FK
+    VARCHAR     midtrans_order_id
+    VARCHAR     transaction_id
+    VARCHAR     event_type
+    VARCHAR     transaction_status
+    VARCHAR     fraud_status
+    DECIMAL     gross_amount
+    JSON        payload         "Raw webhook Midtrans"
+    TINYINT     signature_valid "Validasi SHA-512"
+    TIMESTAMP   processed_at
+  }
+
+  wallets {
+    BIGINT      id              PK
+    BIGINT      user_id         FK "1 dompet per user"
+    DECIMAL     balance         "Saldo Lokal Coin aktif"
+    DECIMAL     lifetime_earned "Total koin pernah diperoleh"
+    TIMESTAMP   created_at
+    TIMESTAMP   updated_at
+  }
+
+  wallet_transactions {
+    BIGINT      id              PK
+    BIGINT      wallet_id       FK
+    ENUM        type            "earn|spend|expire|bonus|adjustment"
+    DECIMAL     amount          "Positif masuk, negatif keluar"
+    DECIMAL     balance_before
+    DECIMAL     balance_after
+    VARCHAR     reference_type  "orders|reviews|system"
+    BIGINT      reference_id
+    VARCHAR     description
+    TIMESTAMP   expires_at      "Hangus 6 bulan (REQ-F04-03)"
+    TIMESTAMP   expired_at
+    TIMESTAMP   created_at
+  }
+
+  reviews {
+    BIGINT      id              PK
+    BIGINT      order_item_id   FK
+    BIGINT      user_id         FK
+    BIGINT      product_id      FK
+    BIGINT      umkm_id         FK
+    TINYINT     rating          "1–5"
+    TEXT        comment
+    JSON        photos
+    TINYINT     coin_rewarded   "1 = sudah dapat 5 koin"
+    TINYINT     is_valid
+    TIMESTAMP   created_at
+    TIMESTAMP   updated_at
+  }
+
+  notifications {
+    BIGINT      id              PK
+    BIGINT      user_id         FK
+    VARCHAR     type            "order_confirmed|payment_success|stock_low|coin_expiry"
+    VARCHAR     title
+    TEXT        body
+    JSON        data
+    TINYINT     is_read
+    TIMESTAMP   read_at
+    TIMESTAMP   created_at
+  }
+
+  ml_price_recommendations {
+    BIGINT      id              PK
+    BIGINT      product_id      FK
+    DECIMAL     recommended_price
+    DECIMAL     price_min
+    DECIMAL     price_max
+    INT         sample_count    "Produk serupa dianalisis radius 5 km"
+    DECIMAL     radius_km
+    VARCHAR     model_version
+    TIMESTAMP   analyzed_at
+  }
+
+  audit_logs {
+    BIGINT      id              PK
+    BIGINT      actor_id        "NULL = system"
+    VARCHAR     actor_role
+    VARCHAR     action
+    VARCHAR     entity_type     "orders|products|umkm_profiles"
+    BIGINT      entity_id
+    JSON        old_value
+    JSON        new_value
+    VARCHAR     ip_address
+    TIMESTAMP   created_at
+  }
+
+  analytics_daily {
+    BIGINT      id              PK
+    BIGINT      umkm_id         FK
+    DATE        date
+    INT         total_orders
+    INT         completed_orders
+    INT         cancelled_orders
+    DECIMAL     gross_revenue
+    DECIMAL     net_revenue
+    INT         new_customers
+    INT         returning_customers
+    BIGINT      top_product_id
+    TIMESTAMP   updated_at
+  }
+
+  %% ============================================================
+  %% RELASI
+  %% ============================================================
+
+  users                  ||--o{ refresh_tokens            : "memiliki"
+  users                  ||--o| umkm_profiles             : "mendaftar sebagai"
+  users                  ||--o| carts                     : "punya keranjang"
+  users                  ||--o{ orders                    : "membuat pesanan"
+  users                  ||--o{ reviews                   : "menulis ulasan"
+  users                  ||--o{ notifications             : "menerima notifikasi"
+  users                  ||--o| wallets                   : "punya dompet"
+
+  categories             ||--o{ categories                : "sub-kategori"
+  categories             ||--o{ products                  : "mengelompokkan"
+
+  umkm_profiles          ||--o{ products                  : "menjual produk"
+  umkm_profiles          ||--o{ order_items               : "menerima order"
+  umkm_profiles          ||--o{ analytics_daily           : "data analitik"
+
+  products               ||--o{ cart_items                : "masuk keranjang"
+  products               ||--o{ order_items               : "tercatat di order"
+  products               ||--o{ reviews                   : "dinilai konsumen"
+  products               ||--o{ ml_price_recommendations  : "dianalisis ML"
+
+  carts                  ||--o{ cart_items                : "berisi item"
+
+  orders                 ||--o{ order_items               : "berisi item"
+  orders                 ||--o{ payment_logs              : "log pembayaran"
+
+  order_items            ||--o| reviews                   : "diulas konsumen"
+
+  wallets                ||--o{ wallet_transactions       : "mencatat transaksi koin"
