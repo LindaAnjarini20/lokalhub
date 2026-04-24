@@ -345,6 +345,360 @@ Mengelola seluruh alur transaksi dari pemilihan produk hingga konfirmasi.
 - **External Services:** Midtrans, Twilio SMS, Google Maps Platform.
 
 ---
+# Rancangan Database
+# 🗄️ Database Schema — Platform LOKAL v1.1.0
+
+> **Platform Digital Berbasis Mobile untuk Optimalisasi Sirkulasi Ekonomi Lokal**  
+> Bandung, Jawa Barat, Indonesia · April 2025
+
+---
+
+## 📋 Ringkasan
+
+| Item | Keterangan |
+|------|-----------|
+| **Database** | MySQL 8.0 |
+| **Total Tabel** | 18 tabel |
+| **Views** | 2 (`v_active_products`, `v_wallet_summary`) |
+| **Stored Procedures** | 2 (`sp_earn_lokal_coin`, `sp_spend_lokal_coin`) |
+| **Charset** | utf8mb4 / utf8mb4_unicode_ci |
+| **Versi Dokumen** | v1.1.0 |
+
+---
+
+## 🗂️ Daftar Tabel
+
+| No | Tabel | Modul | Keterangan |
+|----|-------|-------|-----------|
+| 1 | `users` | F-01 Auth | Semua pengguna: konsumen, UMKM, produsen, admin |
+| 2 | `otp_codes` | F-01 Auth | Audit trail OTP SMS via Twilio |
+| 3 | `refresh_tokens` | F-01 Auth | JWT RS256 refresh token |
+| 4 | `umkm_profiles` | F-01 & F-02 | Profil bisnis UMKM; koordinat `POINT` + `SPATIAL INDEX` |
+| 5 | `categories` | F-02 Produk | Hierarki kategori produk (parent-child) |
+| 6 | `products` | F-02 Produk | Katalog produk; `FULLTEXT` + `JSON` atribut |
+| 7 | `carts` | F-03 Transaksi | Keranjang belanja (1 per user) |
+| 8 | `cart_items` | F-03 Transaksi | Item keranjang multi-UMKM |
+| 9 | `orders` | F-03 Transaksi | Header pesanan + integrasi Midtrans |
+| 10 | `order_items` | F-03 Transaksi | Detail item per UMKM dalam satu order |
+| 11 | `payment_logs` | F-03 Transaksi | Audit log webhook Midtrans (SHA-512) |
+| 12 | `wallets` | F-04 Lokal Coin | Dompet Lokal Coin per pengguna |
+| 13 | `wallet_transactions` | F-04 Lokal Coin | Ledger koin (append-only; hangus 6 bulan) |
+| 14 | `reviews` | F-04 Lokal Coin | Ulasan produk; reward 5 koin |
+| 15 | `notifications` | F-07 Notifikasi | Notifikasi in-app via FCM/APNs + n8n |
+| 16 | `ml_price_recommendations` | F-05 ML | Rekomendasi harga asinkron Python/FastAPI |
+| 17 | `audit_logs` | Keamanan | Log immutable event keuangan & status |
+| 18 | `analytics_daily` | F-06 Analitik | Agregat harian dashboard UMKM |
+
+---
+
+## 📊 Entity Relationship Diagram
+
+```mermaid
+---
+title: Database Schema — Platform LOKAL v1.1.0
+---
+erDiagram
+
+  users {
+    BIGINT      id              PK
+    VARCHAR     name
+    VARBINARY   phone           "AES-256 encrypted"
+    VARCHAR     phone_hash      "SHA-256 untuk pencarian"
+    ENUM        role            "consumer|umkm|producer|admin"
+    ENUM        status          "active|inactive|blocked|pending_verification"
+    VARCHAR     fcm_token
+    JSON        notification_pref
+    TIMESTAMP   created_at
+    TIMESTAMP   deleted_at      "Soft delete"
+  }
+
+  otp_codes {
+    BIGINT      id              PK
+    VARCHAR     phone_hash      FK
+    VARCHAR     otp_hash        "SHA-256 kode OTP"
+    TINYINT     attempt         "Maks. 5 percobaan"
+    TIMESTAMP   expires_at      "TTL 5 menit"
+    TIMESTAMP   blocked_until   "Blokir 15 menit"
+    TIMESTAMP   created_at
+  }
+
+  refresh_tokens {
+    BIGINT      id              PK
+    BIGINT      user_id         FK
+    VARCHAR     token_hash
+    TIMESTAMP   expires_at      "30 hari"
+    TIMESTAMP   revoked_at
+    TIMESTAMP   created_at
+  }
+
+  umkm_profiles {
+    BIGINT      id              PK
+    BIGINT      user_id         FK
+    VARCHAR     business_name
+    TEXT        address
+    POINT       location        "SPATIAL INDEX — radius query"
+    VARCHAR     nib_number
+    VARCHAR     siup_number
+    ENUM        verification_status "pending|verified|rejected"
+    DECIMAL     rating_avg
+    INT         rating_count
+    TINYINT     is_active
+    TIMESTAMP   created_at
+  }
+
+  categories {
+    INT         id              PK
+    INT         parent_id       FK "NULL = root"
+    VARCHAR     name
+    VARCHAR     slug
+    TINYINT     is_active
+    TIMESTAMP   created_at
+  }
+
+  products {
+    BIGINT      id              PK
+    BIGINT      umkm_id         FK
+    INT         category_id     FK
+    VARCHAR     name
+    DECIMAL     price
+    DECIMAL     price_min       "Saran ML minimum"
+    DECIMAL     price_max       "Saran ML maksimum"
+    INT         stock
+    JSON        photos          "Array URL MinIO, maks. 5"
+    JSON        attributes      "Variabel: warna, ukuran, dll."
+    TINYINT     is_active
+    TIMESTAMP   deleted_at      "Soft delete"
+  }
+
+  carts {
+    BIGINT      id              PK
+    BIGINT      user_id         FK "1 keranjang per user"
+    TIMESTAMP   updated_at
+  }
+
+  cart_items {
+    BIGINT      id              PK
+    BIGINT      cart_id         FK
+    BIGINT      product_id      FK
+    INT         quantity
+    DECIMAL     price_snapshot  "Harga saat ditambahkan"
+    TIMESTAMP   updated_at
+  }
+
+  orders {
+    BIGINT      id              PK
+    VARCHAR     order_number    "ORD-YYYYMMDD-XXXXXX"
+    BIGINT      user_id         FK
+    ENUM        status          "pending|paid|processing|shipped|completed|cancelled|refunded"
+    DECIMAL     subtotal
+    DECIMAL     lokal_coin_used "Maks. 20% subtotal"
+    DECIMAL     total_amount    "Jumlah bayar ke Midtrans"
+    ENUM        payment_method  "gopay|ovo|dana|virtual_account|qris"
+    VARCHAR     midtrans_order_id
+    TIMESTAMP   payment_expires_at "Kadaluwarsa 30 menit"
+    TIMESTAMP   paid_at
+    TIMESTAMP   created_at
+  }
+
+  order_items {
+    BIGINT      id              PK
+    BIGINT      order_id        FK
+    BIGINT      umkm_id         FK
+    BIGINT      product_id      FK
+    VARCHAR     product_name    "Snapshot nama produk"
+    INT         quantity
+    DECIMAL     unit_price
+    DECIMAL     subtotal
+    ENUM        umkm_status     "pending|accepted|rejected|shipped|delivered"
+    TIMESTAMP   updated_at
+  }
+
+  payment_logs {
+    BIGINT      id              PK
+    BIGINT      order_id        FK
+    VARCHAR     midtrans_order_id
+    VARCHAR     transaction_id
+    VARCHAR     event_type
+    VARCHAR     transaction_status
+    JSON        payload         "Raw webhook Midtrans"
+    TINYINT     signature_valid "Validasi SHA-512"
+    TIMESTAMP   processed_at
+  }
+
+  wallets {
+    BIGINT      id              PK
+    BIGINT      user_id         FK "1 dompet per user"
+    DECIMAL     balance         "Saldo Lokal Coin aktif"
+    DECIMAL     lifetime_earned
+    TIMESTAMP   updated_at
+  }
+
+  wallet_transactions {
+    BIGINT      id              PK
+    BIGINT      wallet_id       FK
+    ENUM        type            "earn|spend|expire|bonus|adjustment"
+    DECIMAL     amount          "Positif masuk, negatif keluar"
+    DECIMAL     balance_before
+    DECIMAL     balance_after
+    VARCHAR     reference_type  "orders|reviews|system"
+    BIGINT      reference_id
+    TIMESTAMP   expires_at      "Hangus 6 bulan"
+    TIMESTAMP   created_at
+  }
+
+  reviews {
+    BIGINT      id              PK
+    BIGINT      order_item_id   FK
+    BIGINT      user_id         FK
+    BIGINT      product_id      FK
+    BIGINT      umkm_id         FK
+    TINYINT     rating          "1-5"
+    TEXT        comment
+    TINYINT     coin_rewarded   "1 = sudah dapat 5 koin"
+    TIMESTAMP   created_at
+  }
+
+  notifications {
+    BIGINT      id              PK
+    BIGINT      user_id         FK
+    VARCHAR     type            "order_confirmed|payment_success|stock_low|coin_expiry"
+    VARCHAR     title
+    TEXT        body
+    JSON        data
+    TINYINT     is_read
+    TIMESTAMP   created_at
+  }
+
+  ml_price_recommendations {
+    BIGINT      id              PK
+    BIGINT      product_id      FK
+    DECIMAL     recommended_price
+    DECIMAL     price_min
+    DECIMAL     price_max
+    INT         sample_count    "Radius 5 km"
+    VARCHAR     model_version
+    TIMESTAMP   analyzed_at
+  }
+
+  audit_logs {
+    BIGINT      id              PK
+    BIGINT      actor_id        "NULL = system"
+    VARCHAR     action
+    VARCHAR     entity_type
+    BIGINT      entity_id
+    JSON        old_value
+    JSON        new_value
+    TIMESTAMP   created_at
+  }
+
+  analytics_daily {
+    BIGINT      id              PK
+    BIGINT      umkm_id         FK
+    DATE        date
+    INT         total_orders
+    DECIMAL     gross_revenue
+    DECIMAL     net_revenue
+    INT         new_customers
+    TIMESTAMP   updated_at
+  }
+
+  users                  ||--o{ refresh_tokens            : "memiliki"
+  users                  ||--o| umkm_profiles             : "mendaftar sebagai"
+  users                  ||--o| carts                     : "punya keranjang"
+  users                  ||--o{ orders                    : "membuat pesanan"
+  users                  ||--o{ reviews                   : "menulis ulasan"
+  users                  ||--o{ notifications             : "menerima notifikasi"
+  users                  ||--o| wallets                   : "punya dompet"
+
+  categories             ||--o{ categories                : "sub-kategori"
+  categories             ||--o{ products                  : "mengelompokkan"
+
+  umkm_profiles          ||--o{ products                  : "menjual produk"
+  umkm_profiles          ||--o{ order_items               : "menerima order"
+  umkm_profiles          ||--o{ analytics_daily           : "data analitik"
+
+  products               ||--o{ cart_items                : "masuk keranjang"
+  products               ||--o{ order_items               : "tercatat di order"
+  products               ||--o{ reviews                   : "dinilai konsumen"
+  products               ||--o{ ml_price_recommendations  : "dianalisis ML"
+
+  carts                  ||--o{ cart_items                : "berisi item"
+
+  orders                 ||--o{ order_items               : "berisi item"
+  orders                 ||--o{ payment_logs              : "log pembayaran"
+
+  order_items            ||--o| reviews                   : "diulas konsumen"
+
+  wallets                ||--o{ wallet_transactions       : "mencatat transaksi koin"
+```
+
+---
+
+## 🔑 Catatan Teknis Penting
+
+### Keamanan Data
+- Kolom `phone` dan `phone_business` dienkripsi **AES-256** di layer aplikasi (Laravel)
+- Pencarian nomor HP menggunakan `phone_hash` (SHA-256) untuk efisiensi tanpa membuka enkripsi
+- Validasi webhook Midtrans menggunakan **SHA-512** dicatat di `payment_logs.signature_valid`
+- `audit_logs` bersifat **INSERT-ONLY** — tidak boleh ada `UPDATE` atau `DELETE` (NF-SAFE-02)
+
+### Geospasial (Peta Pasar)
+- Koordinat UMKM disimpan sebagai tipe `POINT` MySQL 8.0 dengan `SPATIAL INDEX`
+- Query radius menggunakan `ST_Distance_Sphere`:
+
+```sql
+SELECT *, ST_Distance_Sphere(
+  location,
+  ST_GeomFromText('POINT(107.6191 -6.9175)')
+) AS dist_m
+FROM umkm_profiles
+WHERE ST_MBRContains(
+  ST_Buffer(ST_GeomFromText('POINT(107.6191 -6.9175)', 4326), 5000/111320),
+  location
+)
+AND verification_status = 'verified'
+AND is_active = 1
+ORDER BY dist_m
+LIMIT 50;
+```
+
+### Lokal Coin (F-04)
+- **Tidak bisa dikonversi ke fiat** (BR-01)
+- Maksimum **20%** nilai transaksi dibayar dengan Lokal Coin (BR-02)
+- Koin **hangus otomatis setelah 6 bulan** dari tanggal diperoleh (REQ-F04-03)
+- Notifikasi peringatan 30 hari sebelum kadaluwarsa
+- Reward: **2%** nilai transaksi saat `completed` + **5 koin** per ulasan valid
+
+### Transaksi & Idempotency
+- `orders.midtrans_order_id` memiliki `UNIQUE KEY` untuk mencegah double processing
+- `payment_logs` menyimpan seluruh raw payload webhook Midtrans untuk audit trail
+- Stok **tidak dikurangi** saat status order masih `pending` (NF-SAFE-01)
+
+---
+
+## 📁 File dalam Repositori Ini
+
+| File | Keterangan |
+|------|-----------|
+| `lokal_database_schema.sql` | Schema lengkap siap import ke MySQL 8.0 |
+| `lokal_database_erd.mermaid` | File ERD Mermaid standalone |
+| `README.md` | Dokumentasi ini |
+
+---
+
+## 🚀 Cara Import Schema
+
+```bash
+# Import ke MySQL
+mysql -u root -p lokal_platform < lokal_database_schema.sql
+
+# Atau buat database terlebih dahulu
+mysql -u root -p -e "CREATE DATABASE lokal_platform CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+mysql -u root -p lokal_platform < lokal_database_schema.sql
+```
+
+---
+
 
 # Appendix C: To Be Determined List
 
