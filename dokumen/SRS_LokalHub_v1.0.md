@@ -313,7 +313,7 @@ Mengelola seluruh alur transaksi dari pemilihan produk hingga konfirmasi.
 ---
 
 # Appendix B: Analysis Models
-<img width="1600" height="1200" alt="WhatsApp Image 2026-04-28 at 11 15 51" src="https://github.com/user-attachments/assets/bb37af02-62b7-4faa-87b9-60bbdeda2061" />
+
 
 ## B.1 API Endpoint Summary
 **Base URL:** `https://api.lokal.id/v1`
