@@ -417,7 +417,8 @@ Mengelola seluruh alur transaksi dari pemilihan produk hingga konfirmasi.
 <img width="400" height="300" alt="UseCaseDiagram" src="https://github.com/user-attachments/assets/d81d2403-fa50-4b09-a267-cdf910a74923" />
 
 ## B.4 Activity Diagram
-<img width="400" height="300" alt="Screenshot 2026-04-29 111813" src="https://github.com/user-attachments/assets/1922698e-891c-43bd-a1d9-e5cfbe9dc950" />
+<img width="1470" height="1615" alt="image" src="https://github.com/user-attachments/assets/e08a280d-7226-4649-8752-2701ab9a341e" />
+
 
 
 
