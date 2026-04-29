@@ -1,6 +1,73 @@
 # Software Requirements Specification (SRS)
 ## for Platform LOKAL  
 **Platform Digital Berbasis Mobile untuk Optimalisasi Sirkulasi Ekonomi Lokal**
+**Disusun Oleh:**
+
+| Nama |
+|------|
+| Linda Anjarini |
+| Kiara Evi Nurdiati Putri Rahmatillah |
+| Najwa Alifah |
+| Ikhsan |
+| Naufal Al Farros |
+| Ikbal Maulana Aspahni |
+| Fito Zulhian Jabatami |
+
+**PROGRAM STUDI SISTEM INFORMASI**
+**FAKULTAS ILMU KOMPUTER DAN SISTEM INFORMASI**
+**UNIVERSITAS KEBANGSAAN REPUBLIK INDONESIA**
+**TAHUN 2026**
+
+---
+
+## Table of Contents
+
+[Revision History](#revision-history)
+
+1. [Introduction](#1-introduction)
+   - 1.1 [Purpose](#11-purpose)
+   - 1.2 [Document Conventions](#12-document-conventions)
+   - 1.3 [Intended Audience and Reading Suggestions](#13-intended-audience-and-reading-suggestions)
+   - 1.4 [Product Scope](#14-product-scope)
+   - 1.5 [References](#15-references)
+2. [Overall Description](#2-overall-description)
+   - 2.1 [Product Perspective](#21-product-perspective)
+   - 2.2 [Product Functions](#22-product-functions)
+   - 2.3 [User Classes and Characteristics](#23-user-classes-and-characteristics)
+   - 2.4 [Operating Environment](#24-operating-environment)
+   - 2.5 [Design and Implementation Constraints](#25-design-and-implementation-constraints)
+   - 2.6 [User Documentation](#26-user-documentation)
+   - 2.7 [Assumptions and Dependencies](#27-assumptions-and-dependencies)
+3. [External Interface Requirements](#3-external-interface-requirements)
+   - 3.1 [User Interfaces](#31-user-interfaces)
+   - 3.2 [Hardware Interfaces](#32-hardware-interfaces)
+   - 3.3 [Software Interfaces](#33-software-interfaces)
+   - 3.4 [Communications Interfaces](#34-communications-interfaces)
+4. [System Features](#4-system-features)
+   - 4.1 [Authentication & Authorization](#41-authentication--authorization)
+   - 4.2 [Provider Management](#42-provider-management)
+   - 4.3 [Service Catalog & Search](#43-service-catalog--search)
+   - 4.4 [Order Lifecycle](#44-order-lifecycle)
+   - 4.5 [Payment (DP & Final) via QRIS](#45-payment-dp--final-via-qris)
+   - 4.6 [Notifications](#46-notifications)
+   - 4.7 [Rating & Review](#47-rating--review)
+   - 4.8 [Treasurer Monitoring](#48-treasurer-monitoring)
+5. [Other Nonfunctional Requirements](#5-other-nonfunctional-requirements)
+   - 5.1 [Performance Requirements](#51-performance-requirements)
+   - 5.2 [Safety Requirements](#52-safety-requirements)
+   - 5.3 [Security Requirements](#53-security-requirements)
+   - 5.4 [Software Quality Attributes](#54-software-quality-attributes)
+   - 5.5 [Business Rules](#55-business-rules)
+6. [Other Requirements](#6-other-requirements)
+
+[Appendix A: Glossary](#appendix-a-glossary)
+
+[Appendix B: Analysis Models](#appendix-b-analysis-models)
+
+
+[Appendix C: To Be Determined List](#appendix-c-to-be-determined-list)
+
+---
 
 | Atribut | Nilai |
 |---|---|
