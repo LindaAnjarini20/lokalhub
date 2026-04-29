@@ -413,6 +413,8 @@ Mengelola seluruh alur transaksi dari pemilihan produk hingga konfirmasi.
 - **External Services:** Midtrans, Twilio SMS, Google Maps Platform.
 
 ---
+<img width="1220" height="872" alt="Screenshot 2026-04-29 111605" src="https://github.com/user-attachments/assets/f5bebbea-b940-462d-8ea3-82ec603c65a7" />
+
 
 # Appendix C: To Be Determined List
 
