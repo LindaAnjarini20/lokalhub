@@ -414,8 +414,8 @@ Mengelola seluruh alur transaksi dari pemilihan produk hingga konfirmasi.
 
 ---
 ## B.2 Ui
-<img width="607" height="671" alt="Screenshot 2026-04-29 110122" src="https://github.com/user-attachments/assets/97900269-ce23-4ff0-a5ec-158da4bf8e1c" />
-<img width="628" height="628" alt="Screenshot 2026-04-29 110054" src="https://github.com/user-attachments/assets/bdfc0a17-cd0e-4a47-8048-21026406f316" />
+<img width="208" height="300" alt="Screenshot 2026-04-29 110122" src="https://github.com/user-attachments/assets/97900269-ce23-4ff0-a5ec-158da4bf8e1c" />
+<img width="208" height="300" alt="Screenshot 2026-04-29 110054" src="https://github.com/user-attachments/assets/bdfc0a17-cd0e-4a47-8048-21026406f316" />
 
 
 # Appendix C: To Be Determined List
