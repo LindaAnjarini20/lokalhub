@@ -428,11 +428,3 @@ Mengelola seluruh alur transaksi dari pemilihan produk hingga konfirmasi.
 | TBD-08 | Target concurrent users fase produksi penuh | Setelah evaluasi pilot |
 
 ---
-kelompok 4
-linda 
-kiara
-najwa 20241320077
-ikhsan
-naufal
-iqbal 20241320053
-fito 20241320074
