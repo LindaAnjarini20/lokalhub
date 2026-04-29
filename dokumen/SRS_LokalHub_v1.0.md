@@ -434,7 +434,7 @@ Mengelola seluruh alur transaksi dari pemilihan produk hingga konfirmasi.
 | No. | Item TBD | Target Resolusi |
 |---|---|---|
 | TBD-01 | Integrasi API logistik pihak ketiga (JNE, SiCepat, AnterAja) | Sprint 3 - Mei 2026 |
-| TBD-02 | Video tutorial onboarding UMKM | v1.2.0 - Q3 2025 |
+| TBD-02 | Video tutorial onboarding UMKM | v1.2.0 - Q3 2026 |
 | TBD-03 | Dukungan multi-bahasa (Inggris, Sunda) | v2.0.0 - 2026 |
 | TBD-04 | Threshold stok menipis: global atau per-produk? | Sprint 2 - April 2026 |
 | TBD-05 | Algoritma ML spesifik (Linear Regression, Random Forest, dll.) | Sprint 4 - Mei 2026 |
