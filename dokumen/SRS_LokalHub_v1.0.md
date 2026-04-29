@@ -415,6 +415,7 @@ Mengelola seluruh alur transaksi dari pemilihan produk hingga konfirmasi.
 ---
 ## B.3 Use case
 <img width="400" height="300" alt="UseCaseDiagram" src="https://github.com/user-attachments/assets/d81d2403-fa50-4b09-a267-cdf910a74923" />
+
 ## B.4 Activity Diagram
 <img width="400" height="300" alt="Screenshot 2026-04-29 111813" src="https://github.com/user-attachments/assets/1922698e-891c-43bd-a1d9-e5cfbe9dc950" />
 
@@ -431,13 +432,13 @@ Mengelola seluruh alur transaksi dari pemilihan produk hingga konfirmasi.
 
 | No. | Item TBD | Target Resolusi |
 |---|---|---|
-| TBD-01 | Integrasi API logistik pihak ketiga (JNE, SiCepat, AnterAja) | Sprint 3 — Mei 2025 |
-| TBD-02 | Video tutorial onboarding UMKM | v1.2.0 — Q3 2025 |
-| TBD-03 | Dukungan multi-bahasa (Inggris, Sunda) | v2.0.0 — 2026 |
-| TBD-04 | Threshold stok menipis: global atau per-produk? | Sprint 2 — April 2025 |
-| TBD-05 | Algoritma ML spesifik (Linear Regression, Random Forest, dll.) | Sprint 4 — Mei 2025 |
-| TBD-06 | Spesifikasi teknis panel admin verifikasi UMKM | Dokumen terpisah — Q2 2025 |
-| TBD-07 | Mekanisme penyelesaian sengketa konsumen–UMKM | v1.5.0 — Q4 2025 |
+| TBD-01 | Integrasi API logistik pihak ketiga (JNE, SiCepat, AnterAja) | Sprint 3 - Mei 2026 |
+| TBD-02 | Video tutorial onboarding UMKM | v1.2.0 - Q3 2025 |
+| TBD-03 | Dukungan multi-bahasa (Inggris, Sunda) | v2.0.0 - 2026 |
+| TBD-04 | Threshold stok menipis: global atau per-produk? | Sprint 2 - April 2026 |
+| TBD-05 | Algoritma ML spesifik (Linear Regression, Random Forest, dll.) | Sprint 4 - Mei 2026 |
+| TBD-06 | Spesifikasi teknis panel admin verifikasi UMKM | Dokumen terpisah - Q2 2026 |
+| TBD-07 | Mekanisme penyelesaian sengketa konsumen–UMKM | v1.5.0 - Q4 2026 |
 | TBD-08 | Target concurrent users fase produksi penuh | Setelah evaluasi pilot |
 
 ---
