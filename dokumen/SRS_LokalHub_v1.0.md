@@ -420,6 +420,12 @@ Mengelola seluruh alur transaksi dari pemilihan produk hingga konfirmasi.
 <img width="400" height="300" alt="image" src="https://github.com/user-attachments/assets/e08a280d-7226-4649-8752-2701ab9a341e" />
 
 
+## B.5 Rancangan Database
+<img width="400" height="300" alt="ERD Lokal" src="https://github.com/user-attachments/assets/37d6aed3-b443-4fe2-8ae9-2f817199b62e" />
+
+
+
+
 
 
 ## B.8 Ui
