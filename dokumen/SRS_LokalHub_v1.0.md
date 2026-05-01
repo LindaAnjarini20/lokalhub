@@ -1,3 +1,4 @@
+<img width="1112" height="854" alt="Screenshot 2026-04-29 110345" src="https://github.com/user-attachments/assets/087d9fa0-258e-482e-be50-43a595a3f743" />
 # Software Requirements Specification (SRS)
 ## for Platform LOKAL  
 **Platform Digital Berbasis Mobile untuk Optimalisasi Sirkulasi Ekonomi Lokal**
@@ -432,6 +433,10 @@ Mengelola seluruh alur transaksi dari pemilihan produk hingga konfirmasi.
 <img width="208" height="300" alt="Screenshot 2026-04-29 110122" src="https://github.com/user-attachments/assets/97900269-ce23-4ff0-a5ec-158da4bf8e1c" />
 <img width="208" height="300" alt="Screenshot 2026-04-29 110054" src="https://github.com/user-attachments/assets/bdfc0a17-cd0e-4a47-8048-21026406f316" />
 <img width="208" height="300" alt="Screenshot 2026-04-29 110142" src="https://github.com/user-attachments/assets/592f7f1a-9390-4a23-9e25-a0edc3f739b9" />
+<img width="1112" height="854" alt="Screenshot 2026-04-29 110345" src="https://github.com/user-attachments/assets/fb2ea66a-def3-4bd3-9cfb-4f7340e548d2" />
+<img width="1077" height="442" alt="Screenshot 2026-04-29 110423" src="https://github.com/user-attachments/assets/56b478e3-7cf9-4269-a977-c9cf9577055e" />
+<img width="1045" height="830" alt="Screenshot 2026-04-29 110602" src="https://github.com/user-attachments/assets/f9c8abf2-49aa-4843-943b-25af0fbcebbf" />
+<img width="1060" height="817" alt="Screenshot 2026-04-29 110632" src="https://github.com/user-attachments/assets/1790723b-02c6-40fc-8368-420c082e7418" />
 
 
 
