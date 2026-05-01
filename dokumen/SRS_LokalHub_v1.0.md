@@ -425,6 +425,10 @@ Mengelola seluruh alur transaksi dari pemilihan produk hingga konfirmasi.
 <img width="400" height="300" alt="ERD Lokal" src="https://github.com/user-attachments/assets/37d6aed3-b443-4fe2-8ae9-2f817199b62e" />
 
 
+## B.5 Rancangan Arsitektur Sistem dan Arsitektur Teknologi
+<img width="400" height="300" alt="diagram teknologi and diagram arsitektur" src="https://github.com/user-attachments/assets/20635024-9ced-48fa-909e-e698a922089e" />
+
+
 
 
 
