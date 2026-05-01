@@ -434,19 +434,19 @@ Mengelola seluruh alur transaksi dari pemilihan produk hingga konfirmasi.
 
 
 ## B.8 Ui
-<img width="200" height="800" alt="Screenshot 2026-04-29 110122" src="https://github.com/user-attachments/assets/97900269-ce23-4ff0-a5ec-158da4bf8e1c" />
-<img width="200" height="800" alt="Screenshot 2026-04-29 110054" src="https://github.com/user-attachments/assets/bdfc0a17-cd0e-4a47-8048-21026406f316" />
-<img width="200" height="800" alt="Screenshot 2026-04-29 110142" src="https://github.com/user-attachments/assets/592f7f1a-9390-4a23-9e25-a0edc3f739b9" />
-<img width="200" height="800" alt="Screenshot 2026-04-29 110345" src="https://github.com/user-attachments/assets/fb2ea66a-def3-4bd3-9cfb-4f7340e548d2" />
-<img width="200" height="800" alt="Screenshot 2026-04-29 110423" src="https://github.com/user-attachments/assets/56b478e3-7cf9-4269-a977-c9cf9577055e" />
-<img width="200" height="800" alt="Screenshot 2026-04-29 110602" src="https://github.com/user-attachments/assets/f9c8abf2-49aa-4843-943b-25af0fbcebbf" />
-<img width="200" height="800" alt="Screenshot 2026-04-29 110632" src="https://github.com/user-attachments/assets/1790723b-02c6-40fc-8368-420c082e7418" />
-<img width="200" height="800" alt="Screenshot 2026-04-29 110716" src="https://github.com/user-attachments/assets/cbf13bb2-fbad-4676-8268-7ab70fa66efd" />
-<img width="200" height="800" alt="Screenshot 2026-04-29 110732" src="https://github.com/user-attachments/assets/4f606b30-03fb-486b-a212-32d0e4bf3378" />
-<img width="200" height="800" alt="Screenshot 2026-04-29 111410" src="https://github.com/user-attachments/assets/32d774db-3db8-4278-ac3a-c4a381ed6a99" />
-<img width="200" height="800" alt="Screenshot 2026-04-29 111438" src="https://github.com/user-attachments/assets/d90c4e11-acbc-4c71-9ed3-dc763d5d7571" />
-<img width="200" height="800" alt="Screenshot 2026-04-29 111500" src="https://github.com/user-attachments/assets/d97f5f2c-e095-4d9c-95fc-7f534642f5ce" />
-<img width="200" height="800" alt="Screenshot 2026-04-29 111605" src="https://github.com/user-attachments/assets/1a716213-41be-4299-8ec3-2a4eeb3e63ab" />
+<img width="600" height="300" alt="Screenshot 2026-04-29 110122" src="https://github.com/user-attachments/assets/97900269-ce23-4ff0-a5ec-158da4bf8e1c" />
+<img width="600" height="300" alt="Screenshot 2026-04-29 110054" src="https://github.com/user-attachments/assets/bdfc0a17-cd0e-4a47-8048-21026406f316" />
+<img width="600" height="300" alt="Screenshot 2026-04-29 110142" src="https://github.com/user-attachments/assets/592f7f1a-9390-4a23-9e25-a0edc3f739b9" />
+<img width="600" height="300" alt="Screenshot 2026-04-29 110345" src="https://github.com/user-attachments/assets/fb2ea66a-def3-4bd3-9cfb-4f7340e548d2" />
+<img width="600" height="300" alt="Screenshot 2026-04-29 110423" src="https://github.com/user-attachments/assets/56b478e3-7cf9-4269-a977-c9cf9577055e" />
+<img width="600" height="300" alt="Screenshot 2026-04-29 110602" src="https://github.com/user-attachments/assets/f9c8abf2-49aa-4843-943b-25af0fbcebbf" />
+<img width="600" height="300" alt="Screenshot 2026-04-29 110632" src="https://github.com/user-attachments/assets/1790723b-02c6-40fc-8368-420c082e7418" />
+<img width="600" height="300" alt="Screenshot 2026-04-29 110716" src="https://github.com/user-attachments/assets/cbf13bb2-fbad-4676-8268-7ab70fa66efd" />
+<img width="600" height="300" alt="Screenshot 2026-04-29 110732" src="https://github.com/user-attachments/assets/4f606b30-03fb-486b-a212-32d0e4bf3378" />
+<img width="600" height="300" alt="Screenshot 2026-04-29 111410" src="https://github.com/user-attachments/assets/32d774db-3db8-4278-ac3a-c4a381ed6a99" />
+<img width="600" height="300" alt="Screenshot 2026-04-29 111438" src="https://github.com/user-attachments/assets/d90c4e11-acbc-4c71-9ed3-dc763d5d7571" />
+<img width="600" height="300" alt="Screenshot 2026-04-29 111500" src="https://github.com/user-attachments/assets/d97f5f2c-e095-4d9c-95fc-7f534642f5ce" />
+<img width="600" height="300" alt="Screenshot 2026-04-29 111605" src="https://github.com/user-attachments/assets/1a716213-41be-4299-8ec3-2a4eeb3e63ab" />
 
 
 
