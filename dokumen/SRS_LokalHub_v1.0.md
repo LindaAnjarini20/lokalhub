@@ -1,4 +1,3 @@
-<img width="1112" height="854" alt="Screenshot 2026-04-29 110345" src="https://github.com/user-attachments/assets/087d9fa0-258e-482e-be50-43a595a3f743" />
 # Software Requirements Specification (SRS)
 ## for Platform LOKAL  
 **Platform Digital Berbasis Mobile untuk Optimalisasi Sirkulasi Ekonomi Lokal**
@@ -6,13 +5,13 @@
 
 | Nama |
 |------|
-| Linda Anjarini |
-| Kiara Evi Nurdiati Putri Rahmatillah |
-| Najwa Alifah |
-| Ikhsan |
-| Naufal Al Farros |
-| Ikbal Maulana Aspahni |
-| Fito Zulhian Jabatami |
+| Linda Anjarini | 20241320058 |
+| Kiara Evi Nurdiati Putri Rahmatillah | 20241320067 |
+| Najwa Alifah | 20241320077 |
+| Ikhsan | 20241320083 |
+| Naufal Al Farros | 20241320091 |
+| Ikbal Maulana Aspahni | 20241320053 |
+| Fito Zulhian Jabatami | 20241320074 |
 
 **PROGRAM STUDI SISTEM INFORMASI**
 **FAKULTAS ILMU KOMPUTER DAN SISTEM INFORMASI**
