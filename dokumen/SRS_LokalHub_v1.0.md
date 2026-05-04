@@ -71,12 +71,12 @@
 
 | Atribut | Nilai |
 |---|---|
-| Versi Dokumen | 1.1.0 — April 2026 |
+| Versi Dokumen | 1.1.0 - April 2026 |
 | Status | Draft Akhir |
 | Dibuat oleh | Tim Pengembang Platform LOKAL |
-| Organisasi | Platform LOKAL — Bandung, Jawa Barat, Indonesia |
+| Organisasi | Platform LOKAL - Bandung, Jawa Barat, Indonesia |
 | Tanggal Dibuat | April 2026 |
-| Klasifikasi | Internal — Dokumen Perancangan |
+| Klasifikasi | Internal - Dokumen Perancangan |
 | Database | MySQL 8.0 |
 
 ---
