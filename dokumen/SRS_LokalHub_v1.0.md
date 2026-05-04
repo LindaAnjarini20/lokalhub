@@ -3,8 +3,8 @@
 **Platform Digital Berbasis Mobile untuk Optimalisasi Sirkulasi Ekonomi Lokal**
 **Disusun Oleh:**
 
-| Nama |
-|------|
+| Nama | NPM |
+|------|------|
 | Linda Anjarini | 20241320058 |
 | Kiara Evi Nurdiati Putri Rahmatillah | 20241320067 |
 | Najwa Alifah | 20241320077 |
