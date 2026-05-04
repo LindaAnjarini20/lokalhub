@@ -92,7 +92,7 @@
 # 1. Introduction
 
 ## 1.1 Purpose
-Dokumen SRS ini mendefinisikan kebutuhan perangkat lunak Platform LOKAL v1.1.0 — aplikasi mobile ekosistem ekonomi digital tertutup (*closed-loop*) untuk mengoptimalkan sirkulasi ekonomi lokal di Kota Bandung dan sekitarnya. Dokumen ini mencakup kebutuhan fungsional, non-fungsional, antarmuka eksternal, dan arsitektur sistem sebagai acuan bagi tim developer, QA, manajer proyek, dan pemangku kepentingan.
+Dokumen SRS ini mendefinisikan kebutuhan perangkat lunak Platform LOKAL v1.1.0 - aplikasi mobile ekosistem ekonomi digital tertutup (*closed-loop*) untuk mengoptimalkan sirkulasi ekonomi lokal di Kota Bandung dan sekitarnya. Dokumen ini mencakup kebutuhan fungsional, non-fungsional, antarmuka eksternal, dan arsitektur sistem sebagai acuan bagi tim developer, QA, manajer proyek, dan pemangku kepentingan.
 
 ## 1.2 Document Conventions
 Dokumen mengikuti standar **IEEE 830-1998**. Prioritas ditandai: **Tinggi / Sedang / Rendah**.  
@@ -111,7 +111,7 @@ Tujuan utama: mengurangi kebocoran ekonomi lokal, memberi akses digital bagi UMK
 Fase pilot: Kota Bandung, Kab. Bandung, Kab. Bandung Barat, dan Kota Cimahi.
 
 ## 1.5 References
-- Dokumen Teknis Sistem LOKAL v1.1.0 — April 2025.  
+- Dokumen Teknis Sistem LOKAL v1.1.0 - April 2026.  
 - IEEE Std 830-1998: Recommended Practice for Software Requirements Specifications.  
 - UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi (UU PDP).  
 - Regulasi OJK dan Bank Indonesia terkait sistem pembayaran digital.  
